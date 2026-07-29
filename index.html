@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShieldVPN — Быстрый и безопасный VPN</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0f1e 0%, #1a1f2e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Шапка */
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #6c5ce7;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #a29bfe;
+        }
+
+        .nav-links a {
+            color: #b0b8d0;
+            text-decoration: none;
+            margin-left: 30px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #6c5ce7;
+        }
+
+        /* Герой-секция */
+        .hero {
+            text-align: center;
+            padding: 80px 0 60px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #b0b8d0;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .feature-item {
+            text-align: center;
+            max-width: 200px;
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .feature-item h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #e0e0ff;
+        }
+
+        .feature-item p {
+            font-size: 14px;
+            color: #8890a5;
+        }
+
+        /* Карточки тарифов */
+        .pricing {
+            padding: 40px 0 80px;
+        }
+
+        .pricing h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+        }
+
+        .plans {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .plan-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px 30px;
+            width: 300px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(108, 92, 231, 0.2);
+            border-color: #6c5ce7;
+        }
+
+        .plan-card.popular {
+            border-color: #6c5ce7;
+            box-shadow: 0 0 30px rgba(108, 92, 231, 0.15);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: #6c5ce7;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .plan-name {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #e0e0ff;
+        }
+
+        .plan-price {
+            font-size: 48px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+
+        .plan-price span {
+            font-size: 18px;
+            color: #8890a5;
+            font-weight: 400;
+        }
+
+        .plan-period {
+            color: #8890a5;
+            margin-bottom: 25px;
+        }
+
+        .plan-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .plan-features li {
+            padding: 8px 0;
+            color: #b0b8d0;
+            font-size: 15px;
+        }
+
+        .plan-features li::before {
+            content: "✓ ";
+            color: #6c5ce7;
+            font-weight: bold;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #6c5ce7;
+            color: white;
+            padding: 14px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: #5a4bd1;
+            transform: scale(1.02);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #6c5ce7;
+            color: #6c5ce7;
+        }
+
+        .btn-outline:hover {
+            background: #6c5ce7;
+            color: white;
+        }
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #1a1f2e;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #8890a5;
+            background: none;
+            border: none;
+        }
+
+        .modal h2 {
+            margin-bottom: 20px;
+            color: #e0e0ff;
+        }
+
+        .modal .plan-price {
+            font-size: 42px;
+            margin: 15px 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #b0b8d0;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #6c5ce7;
+        }
+
+        .success-message {
+            display: none;
+            color: #00d2a0;
+            font-size: 18px;
+            padding: 20px;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* Футер */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #667;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+            .plans {
+                flex-direction: column;
+                align-items: center;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Shield<span>VPN</span></div>
+                <div class="nav-links">
+                    <a href="#">Главная</a>
+                    <a href="#pricing">Тарифы</a>
+                    <a href="#">Серверы</a>
+                    <a href="#">Поддержка</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Безопасный интернет без границ</h1>
+            <p>Получите доступ к любому контенту с молниеносной скоростью. Ваши данные под надёжной защитой.</p>
+            <div class="features">
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Шифрование AES-256</h3>
+                    <p>Военный уровень защиты ваших данных</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Высокая скорость</h3>
+                    <p>Серверы в 50+ странах мира</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>No-log политика</h3>
+                    <p>Мы не храним ваши данные</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2>Выберите тариф</h2>
+            <div class="plans">
+
+                <!-- Тариф 1 месяц -->
+                <div class="plan-card">
+                    <div class="plan-name">1 месяц</div>
+                    <div class="plan-price">499<span>₽</span></div>
+                    <div class="plan-period">/месяц</div>
+                    <ul class="plan-features">
+                        <li>Безлимитный трафик</li>
+                        <li>Все локации серверов</li>
+                        <li>До 5 устройств</li>
+                        <li>Поддержка 24/7</li>
+                    </ul>
+                    <button class="btn btn-outline" onclick="openModal('1 месяц', 499)">Выбрать</button>
+                </div>
+
+                <!-- Тариф 6 месяцев (популярный) -->
+                <div class="plan-card popular">
+                    <div class="popular-badge">Популярный</div>
+                    <div class="plan-name">6 месяцев</div>
+                    <div class="plan-price">249<span>₽</span></div>
+                    <div class="plan-period">/месяц · 1494₽ сразу</div>
+                    <ul class="plan-features">
+                        <li>Безлимитный трафик</li>
+                        <li>Все локации серверов</li>
+                        <li>До 10 устройств</li>
+                        <li>Приоритетная поддержка</li>
+                        <li>Экономия 50%</li>
+                    </ul>
+                    <button class="btn" onclick="openModal('6 месяцев', 1494)">Выбрать</button>
+                </div>
+
+                <!-- Тариф 12 месяцев -->
+                <div class="plan-card">
+                    <div class="plan-name">12 месяцев</div>
+                    <div class="plan-price">166<span>₽</span></div>
+                    <div class="plan-period">/месяц · 1992₽ сразу</div>
+                    <ul class="plan-features">
+                        <li>Безлимитный трафик</li>
+                        <li>Все локации серверов</li>
+                        <li>Неограниченно устройств</li>
+                        <li>Выделенный IP (опция)</li>
+                        <li>Экономия 67%</li>
+                    </ul>
+                    <button class="btn btn-outline" onclick="openModal('12 месяцев', 1992)">Выбрать</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Модальное окно оформления -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <div id="modalForm">
+                <h2>Оформление подписки</h2>
+                <p id="selectedPlan" style="color:#b0b8d0; margin-bottom:10px;"></p>
+                <div class="plan-price" id="selectedPrice" style="font-size:36px;"></div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="email" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Номер карты</label>
+                    <input type="text" id="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19" required>
+                </div>
+                <div style="display:flex; gap:10px;">
+                    <div class="form-group" style="flex:1;">
+                        <label>Срок</label>
+                        <input type="text" id="expiry" placeholder="MM/YY" maxlength="5" required>
+                    </div>
+                    <div class="form-group" style="flex:1;">
+                        <label>CVC</label>
+                        <input type="text" id="cvc" placeholder="123" maxlength="3" required>
+                    </div>
+                </div>
+                <button class="btn" onclick="processPayment()">Оплатить</button>
+            </div>
+            <div class="success-message" id="successMessage">
+                <div style="font-size:50px; margin-bottom:20px;">✅</div>
+                <h2>Оплата прошла успешно!</h2>
+                <p>Инструкции отправлены на ваш email.</p>
+                <p style="margin-top:15px; color:#8890a5;">Спасибо за покупку!</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 ShieldVPN. Все права защищены. Это демонстрационный сайт.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Данные выбранного тарифа
+        let currentPlan = '';
+        let currentPrice = 0;
+
+        // Открыть модальное окно
+        function openModal(plan, price) {
+            currentPlan = plan;
+            currentPrice = price;
+            
+            document.getElementById('selectedPlan').textContent = `Тариф: ${plan}`;
+            document.getElementById('selectedPrice').textContent = `${price} ₽`;
+            document.getElementById('modalForm').style.display = 'block';
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('successMessage').classList.remove('show');
+            
+            // Очистить поля
+            document.getElementById('email').value = '';
+            document.getElementById('cardNumber').value = '';
+            document.getElementById('expiry').value = '';
+            document.getElementById('cvc').value = '';
+            
+            document.getElementById('paymentModal').classList.add('active');
+        }
+
+        // Закрыть модальное окно
+        function closeModal() {
+            document.getElementById('paymentModal').classList.remove('active');
+        }
+
+        // Маска для номера карты
+        document.getElementById('cardNumber').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            value = value.replace(/(.{4})/g, '$1 ').trim();
+            e.target.value = value.substring(0, 19);
+        });
+
+        // Маска для срока действия
+        document.getElementById('expiry').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+            e.target.value = value.substring(0, 5);
+        });
+
+        // Имитация обработки платежа
+        function processPayment() {
+            const email = document.getElementById('email').value.trim();
+            const cardNumber = document.getElementById('cardNumber').value.trim();
+            const expiry = document.getElementById('expiry').value.trim();
+            const cvc = document.getElementById('cvc').value.trim();
+
+            // Простая валидация
+            if (!email || !cardNumber || !expiry || !cvc) {
+                alert('Пожалуйста, заполните все поля.');
+                return;
+            }
+
+            if (!email.includes('@') || !email.includes('.')) {
+                alert('Пожалуйста, введите корректный email.');
+                return;
+            }
+
+            if (cardNumber.replace(/\s/g, '').length < 16) {
+                alert('Пожалуйста, введите корректный номер карты.');
+                return;
+            }
+
+            // Имитация загрузки
+            const btn = document.querySelector('#modalForm .btn');
+            btn.textContent = 'Обработка...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                // Показать сообщение об успехе
+                document.getElementById('modalForm').style.display = 'none';
+                document.getElementById('successMessage').classList.add('show');
+                btn.textContent = 'Оплатить';
+                btn.disabled = false;
+            }, 1500);
+        }
+
+        // Закрытие модального окна при клике вне его
+        document.getElementById('paymentModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Закрытие по клавише Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+
+</body>
+</html>
