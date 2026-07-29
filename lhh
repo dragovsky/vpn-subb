@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Subb VPN — Быстрый и безопасный VPN</title>
+  <!-- Подключение иконок Remix Icon для визуальных элементов -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+  <style>
+    /* ----- ОБЩИЕ СТИЛИ И СБРОСЫ ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #0c0c1e 0%, #1a1a35 100%);
+      color: #e4e4f0;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ----- ШАПКА САЙТА ----- */
+    header {
+      background: rgba(15, 15, 35, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 1.2rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(108, 92, 231, 0.25);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #a78bfa, #6d28d9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .logo i {
+      font-size: 2.2rem;
+      background: linear-gradient(135deg, #c4b5fd, #7c3aed);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 2.2rem;
+    }
+    .nav-menu a {
+      color: #cdd6f4;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+      position: relative;
+      font-size: 1.05rem;
+    }
+    .nav-menu a:hover {
+      color: #c084fc;
+    }
+    .btn-header {
+      background: #7c3aed;
+      border: none;
+      padding: 0.7rem 1.8rem;
+      border-radius: 30px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      box-shadow: 0 4px 18px rgba(124,58,237,0.4);
+    }
+    .btn-header:hover {
+      box-shadow: 0 6px 22px rgba(139,92,246,0.6);
+      transform: translateY(-2px);
+    }
+
+    .burger {
+      display: none;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #c4b5fd;
+    }
+
+    /* ----- ГЕРОЙ СЕКЦИЯ ----- */
+    .hero {
+      padding: 4rem 0 3rem;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 3.4rem;
+      font-weight: 800;
+      background: linear-gradient(to right, #e9d5ff, #a78bfa, #7c3aed);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1.2rem;
+    }
+    .hero p {
+      font-size: 1.25rem;
+      color: #a1a1cc;
+      max-width: 700px;
+      margin: 0 auto 2.5rem;
+    }
+    .cta-group {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: #7c3aed;
+      border: none;
+      padding: 0.9rem 2.8rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+      background: linear-gradient(135deg, #a78bfa, #6d28d9);
+    }
+    .btn-primary:hover {
+      filter: brightness(1.15);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid #7c3aed;
+      color: #d8b4fe;
+      padding: 0.9rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn-outline:hover {
+      background: rgba(124,58,237,0.2);
+    }
+
+    /* ----- МЕНЮ УСТРОЙСТВ ----- */
+    .devices-section {
+      padding: 3rem 0 4rem;
+    }
+    .section-title {
+      font-size: 2.3rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      color: #ede9fe;
+    }
+    .device-tabs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2.8rem;
+    }
+    .tab-btn {
+      background: rgba(30, 30, 55, 0.8);
+      border: 1px solid #4c3a7a;
+      padding: 0.8rem 2rem;
+      border-radius: 40px;
+      color: #d1d5db;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .tab-btn i {
+      font-size: 1.4rem;
+    }
+    .tab-btn.active {
+      background: #7c3aed;
+      border-color: #a78bfa;
+      color: white;
+      box-shadow: 0 0 20px #7c3aed80;
+    }
+    .device-content {
+      background: rgba(20, 20, 45, 0.7);
+      backdrop-filter: blur(14px);
+      border-radius: 28px;
+      padding: 2.2rem;
+      border: 1px solid #4b3b78;
+      max-width: 750px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .device-instruction {
+      font-size: 1.1rem;
+      margin: 1.2rem 0;
+      color: #cbd5e1;
+    }
+    .download-link {
+      display: inline-flex;
+      align-items: center;
+      background: #2e1065;
+      color: white;
+      padding: 0.8rem 2rem;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 1rem;
+      transition: 0.3s;
+    }
+    .download-link:hover {
+      background: #4c1d95;
+    }
+
+    /* ----- ТАРИФЫ ----- */
+    .pricing {
+      padding: 2rem 0 4rem;
+    }
+    .pricing-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+    .plan-card {
+      background: rgba(18, 18, 40, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid #4b3b78;
+      border-radius: 24px;
+      padding: 2.2rem 1.8rem;
+      flex: 1 1 260px;
+      max-width: 320px;
+      transition: 0.3s;
+      position: relative;
+    }
+    .plan-card.popular {
+      border-color: #a78bfa;
+      box-shadow: 0 0 30px #7c3aed40;
+      transform: scale(1.02);
+    }
+    .badge {
+      position: absolute;
+      top: -14px;
+      right: 20px;
+      background: #f59e0b;
+      color: #0f0f23;
+      padding: 0.3rem 1.3rem;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+    .price {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: #c084fc;
+      margin: 0.8rem 0;
+    }
+    .btn-plan {
+      width: 100%;
+      margin-top: 1.5rem;
+      background: #7c3aed;
+      border: none;
+      padding: 0.8rem;
+      border-radius: 30px;
+      font-weight: 700;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* ----- FAQ (Аккордеон) ----- */
+    .faq-item {
+      background: rgba(25, 25, 50, 0.7);
+      border: 1px solid #4b3b78;
+      border-radius: 16px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+    .faq-question {
+      padding: 1.2rem 1.8rem;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: white;
+      width: 100%;
+      font-size: 1.1rem;
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      padding: 0 1.8rem;
+      color: #b9bbd6;
+    }
+    .faq-answer.open {
+      max-height: 200px;
+      padding-bottom: 1.4rem;
+    }
+
+    /* ----- МОДАЛЬНОЕ ОКНО ----- */
+    .modal {
+      display: none;
+      position: fixed;
+      top:0; left:0; width:100%; height:100%;
+      background: rgba(0,0,0,0.8);
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+    }
+    .modal.active {
+      display: flex;
+    }
+    .modal-box {
+      background: #1a1a35;
+      padding: 2.2rem;
+      border-radius: 24px;
+      width: 90%;
+      max-width: 420px;
+    }
+    .close-modal {
+      float: right;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
+
+    /* ----- ПОДВАЛ ----- */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #7e7ea0;
+      border-top: 1px solid #3a3a60;
+    }
+
+    /* АДАПТИВ */
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: #12122a;
+        padding: 1.8rem;
+      }
+      .nav-menu.show {
+        display: flex;
+      }
+      .burger {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <div class="logo">
+        <i class="ri-shield-keyhole-line"></i> Subb VPN
+      </div>
+      <div class="nav-menu" id="navMenu">
+        <a href="#home">Главная</a>
+        <a href="#devices">Устройства</a>
+        <a href="#pricing">Тарифы</a>
+        <a href="#faq">Вопросы</a>
+        <button class="btn-header" id="openModalBtn">Попробовать</button>
+      </div>
+      <div class="burger" id="burgerBtn"><i class="ri-menu-line"></i></div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section id="home" class="hero container">
+      <h1>Приватность без границ</h1>
+      <p>Subb VPN шифрует трафик и открывает доступ к любимым сервисам. Молниеносная скорость и строгая политика нулевых логов.</p>
+      <div class="cta-group">
+        <button class="btn-primary" onclick="scrollToSection('pricing')">Выбрать тариф</button>
+        <button class="btn-outline" id="openModalHero">Бесплатный пробный день</button>
+      </div>
+    </section>
+
+    <!-- Устройства -->
+    <section id="devices" class="devices-section container">
+      <h2 class="section-title">Подключите любое устройство</h2>
+      <div class="device-tabs" id="deviceTabs">
+        <button class="tab-btn active" data-device="windows"><i class="ri-windows-fill"></i> Windows</button>
+        <button class="tab-btn" data-device="mac"><i class="ri-apple-fill"></i> macOS</button>
+        <button class="tab-btn" data-device="android"><i class="ri-android-fill"></i> Android</button>
+        <button class="tab-btn" data-device="ios"><i class="ri-iphone-fill"></i> iOS</button>
+      </div>
+      <div class="device-content" id="deviceContent">
+        <!-- динамически обновляется -->
+      </div>
+    </section>
+
+    <!-- Тарифы -->
+    <section id="pricing" class="pricing container">
+      <h2 class="section-title">Прозрачные тарифы</h2>
+      <div class="pricing-grid">
+        <div class="plan-card">
+          <h3>1 месяц</h3>
+          <div class="price">$11.99</div>
+          <p>• 10 устройств<br>• Безлимитный трафик<br>• 40+ стран</p>
+          <button class="btn-plan" onclick="alert('Вы выбрали месячный план')">Выбрать</button>
+        </div>
+        <div class="plan-card popular">
+          <span class="badge">ПОПУЛЯРНЫЙ</span>
+          <h3>1 год</h3>
+          <div class="price">$4.99<span style="font-size:1.2rem;">/мес</span></div>
+          <p>• Всё из месячного<br>• Экономия 58%<br>• Приоритетная поддержка</p>
+          <button class="btn-plan" onclick="alert('Годовой план активирован')">Выбрать</button>
+        </div>
+        <div class="plan-card">
+          <h3>2 года + 3 мес</h3>
+          <div class="price">$2.99<span style="font-size:1.2rem;">/мес</span></div>
+          <p>• Максимальная выгода<br>• Защита 5 устройств<br>• Эксклюзивные серверы</p>
+          <button class="btn-plan" onclick="alert('Двухлетний план')">Выбрать</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ аккордеон -->
+    <section id="faq" class="container" style="padding-bottom:3rem;">
+      <h2 class="section-title">Частые вопросы</h2>
+      <div class="faq-item">
+        <button class="faq-question">Ведёте ли вы логи? <i class="ri-arrow-down-s-line"></i></button>
+        <div class="faq-answer">Нет, Subb VPN придерживается строгой политики No-Logs. Мы не храним данные о вашей активности.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Сколько устройств можно подключить? <i class="ri-arrow-down-s-line"></i></button>
+        <div class="faq-answer">До 10 устройств одновременно под одной учётной записью.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Есть ли возврат средств? <i class="ri-arrow-down-s-line"></i></button>
+        <div class="faq-answer">Да, мы предоставляем 30-дневнюю гарантию возврата без лишних вопросов.</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Модальное окно -->
+  <div class="modal" id="trialModal">
+    <div class="modal-box">
+      <button class="close-modal" id="closeModalBtn">&times;</button>
+      <h3 style="color:#c084fc; margin-bottom:1rem;">Активировать пробный период</h3>
+      <form id="trialForm" onsubmit="handleTrial(event)">
+        <input type="email" placeholder="your@email.com" required style="width:100%; padding:0.8rem; border-radius:20px; border:none; margin-bottom:1rem; background:#2d2d50; color:white;">
+        <button type="submit" class="btn-primary" style="width:100%;">Получить 1 день бесплатно</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Subb VPN. Все права защищены. Конфиденциальность — наш приоритет.</p>
+  </footer>
+
+  <script>
+    (function() {
+      // --- Данные устройств ---
+      const deviceData = {
+        windows: {
+          title: "Windows",
+          instruction: "Скачайте установщик .exe, запустите и войдите в аккаунт Subb VPN.",
+          icon: "ri-windows-fill"
+        },
+        mac: {
+          title: "macOS",
+          instruction: "Загрузите образ DMG, перетащите значок в папку «Программы» и авторизуйтесь.",
+          icon: "ri-apple-fill"
+        },
+        android: {
+          title: "Android",
+          instruction: "Установите приложение из Google Play, откройте и нажмите «Подключиться».",
+          icon: "ri-android-fill"
+        },
+        ios: {
+          title: "iOS",
+          instruction: "Загрузите из App Store, предоставьте разрешения VPN и включите защиту.",
+          icon: "ri-iphone-fill"
+        }
+      };
+
+      const deviceContentDiv = document.getElementById('deviceContent');
+      const tabButtons = document.querySelectorAll('.tab-btn');
+
+      // Функция обновления контента устройства
+      function renderDevice(deviceKey) {
+        const d = deviceData[deviceKey];
+        if (!d) return;
+        deviceContentDiv.innerHTML = `
+          <i class="${d.icon}" style="font-size: 3.5rem; color: #c084fc;"></i>
+          <h3 style="margin-top:0.8rem; font-size:1.8rem;">${d.title}</h3>
+          <p class="device-instruction">${d.instruction}</p>
+          <a href="#" class="download-link" onclick="event.preventDefault(); alert('Загрузка для ${d.title} начнётся...')">
+            <i class="ri-download-2-line"></i> Скачать для ${d.title}
+          </a>
+        `;
+      }
+
+      // Переключение вкладок устройств
+      tabButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          tabButtons.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          const device = this.dataset.device;
+          renderDevice(device);
+        });
+      });
+
+      // Инициализация первого устройства
+      renderDevice('windows');
+
+      // --- Бургер-меню ---
+      const burger = document.getElementById('burgerBtn');
+      const navMenu = document.getElementById('navMenu');
+      burger.addEventListener('click', () => {
+        navMenu.classList.toggle('show');
+      });
+
+      // Закрытие меню при клике на ссылку (мобильные)
+      document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+          if (window.innerWidth <= 768) {
+            navMenu.classList.remove('show');
+          }
+        });
+      });
+
+      // --- FAQ Аккордеон ---
+      document.querySelectorAll('.faq-question').forEach(q => {
+        q.addEventListener('click', function() {
+          const answer = this.nextElementSibling;
+          const icon = this.querySelector('i');
+          // Закрыть остальные
+          document.querySelectorAll('.faq-answer').forEach(a => {
+            if (a !== answer) {
+              a.classList.remove('open');
+              const otherIcon = a.previousElementSibling?.querySelector('i');
+              if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+            }
+          });
+          answer.classList.toggle('open');
+          if (answer.classList.contains('open')) {
+            icon.style.transform = 'rotate(180deg)';
+          } else {
+            icon.style.transform = 'rotate(0deg)';
+          }
+        });
+      });
+
+      // --- Модальное окно ---
+      const modal = document.getElementById('trialModal');
+      const openModalBtn = document.getElementById('openModalBtn');
+      const openModalHero = document.getElementById('openModalHero');
+      const closeModalBtn = document.getElementById('closeModalBtn');
+
+      function openModal() { modal.classList.add('active'); }
+      function closeModal() { modal.classList.remove('active'); }
+
+      openModalBtn.addEventListener('click', openModal);
+      openModalHero.addEventListener('click', openModal);
+      closeModalBtn.addEventListener('click', closeModal);
+      window.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+
+      // Обработчик отправки формы
+      window.handleTrial = function(event) {
+        event.preventDefault();
+        const emailInput = event.target.querySelector('input');
+        alert(`Спасибо! Инструкция отправлена на ${emailInput.value}. Проверьте почту.`);
+        closeModal();
+        emailInput.value = '';
+      };
+
+      // Плавный скролл (вспомогательная функция)
+      window.scrollToSection = function(id) {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      };
+    })();
+  </script>
+</body>
+</html>
